@@ -155,7 +155,7 @@ for repeat = 1:1
         zlabel('Voltage')
         title('Electric Potential of Grid')
         colorbar;
-        %view(2)
+        view(2)
 
         %%
         % The electric field can be seen in the figure below. The electric

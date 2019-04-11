@@ -424,13 +424,16 @@ xAxis = linspace(0,200e-9,40);
 yAxis = linspace(0,100e-9,40);
 surf(xAxis,yAxis, electronCount);
 colorbar;
-%view(2);
+view(2);
 title('Electron Density')
 xlabel('X Position (m) ')
 ylabel('Y Position (m)')
 
 %% C
-% In order to make this simulation more accurate, the mesh size of the
+% In order to make this simulation more accurate, the effect between
+% electrons (forces between electrons) should be take into account.
+
+% The mesh size of the
 % forward difference method should be increased (to get a more accurate E
 % field), and the mesh size of the Monte-Carlo Simulation should be
 % increased (to get a more accurate position of the particle).

@@ -37,12 +37,12 @@ C.g = 9.80665; %metres (32.1740 ft) per s²
 % From (B), we can calculte the acceleration of each electron. The full
 % code for calculating acceleration from the applied voltage can be seen
 % below. 
-% $a=F/m=8.7941*10^{16} m/{s^2}$
+% $a=F/m=3.3825*10^{17} m/{s^2}$
 
 vAppX = 1; %V
 vAppY = 0; %V
-accX  = vAppX*C.q_0/(C.m_0*200e-9); %m/s^2
-accY  = vAppY*C.q_0/(C.m_0*100e-9); %m/s^2
+accX  = vAppX*C.q_0/(0.26*C.m_0*200e-9); %m/s^2
+accY  = vAppY*C.q_0/(0.26*C.m_0*100e-9); %m/s^2
 
 %Thermal Velocity at 300K: 
 vth = sqrt(C.kb*300/(0.26*C.m_0));
@@ -56,8 +56,8 @@ freePath = tmn * vth;
 % velocity, and the temperature of the system. Column 1 of each matrice is
 % the previous value, while column 2 is the current value.
 numElectrons=20000;
-dt = 6e-15; %seconds
-nTime = 6e-12; %Simulation length
+dt = 1.5e-15; %seconds
+nTime = 1.5e-12; %Simulation length
 x = zeros(numElectrons,2); %Position (x)
 y = zeros(numElectrons, 2); %Position (y)
 vx = zeros(numElectrons, 2); %Velocity (x)
@@ -107,11 +107,11 @@ axis([0 200e-9 0 100e-9]);
 %% (D)
 % The relationship between the electron drift current density and the
 % average carrier density is:
-% $J_d = n * v_{ave}/A$
+% $J_d = n *q* v_{ave}/A$
 % Where n is the number of electrons. 
 % 
 % Therefore, the current is:
-% $I = n*v_{ave}$
+% $I = n*q*v_{ave}$
 
 figure(3)
 title('Current')
@@ -241,7 +241,7 @@ for count =  1:500
     % Update the current values. Plot the change
     % in current over the step in time. 
     Ix(:,1)=Ix(:,2);
-    Ix(:,2)= (vx(:,2))*(10^15/(1e-4))*(200e-9*100e-9);
+    Ix(:,2)= C.q_0*(vx(:,2))*(10^15/(1e-4))*(200e-9*100e-9);
     if(count>1)        
         figure(3)
         hold on
@@ -293,6 +293,8 @@ title('Electron Density')
 xlabel('X Position (m) ')
 ylabel('Y Position (m)')
 zlabel('Number of Electrons')
+view(2)
+colorbar
 
 figure(5)
 surf(xAxis,yAxis, electronTemperature);
@@ -300,4 +302,6 @@ title('Temperature Map')
 xlabel('X Position (m) ')
 ylabel('Y Position (m)')
 zlabel('Temperture')
+view(2)
+colorbar
 
